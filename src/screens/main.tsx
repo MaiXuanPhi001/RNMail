@@ -3,6 +3,7 @@ import { TouchableOpacity } from "@/atoms/touchable"
 import HeaderBar from "@/components/header-bar"
 import FeatherIcon from "@/components/icon"
 import NoteList from "@/components/note-list"
+import useStickyHeader from "@/hooks/use-sticky-header"
 import { HomeDrawerParamList, RootStackParamList } from "@/navs"
 import { DrawerScreenProps } from "@react-navigation/drawer"
 import { CompositeScreenProps } from "@react-navigation/native"
@@ -15,13 +16,14 @@ type Props = CompositeScreenProps<
 >
 
 export default function MainScreen({ navigation }: Props) {
+    const { handleNoteListLayout, handleScroll, headerBarStyle, headerBarHeight } = useStickyHeader()
     const handleSidebarToggle = useCallback(() => {
         navigation.toggleDrawer()
     }, [navigation])
     return (
         <Container justifyContent={"center"} alignItems={'center'}>
-            <NoteList />
-            <HeaderBar>
+            <NoteList contentInsetTop={headerBarHeight} onScroll={handleScroll} />
+            <HeaderBar style={headerBarStyle} onLayout={handleNoteListLayout}>
                 <TouchableOpacity m="xs" p="xs" rippleBorderless onPress={handleSidebarToggle}>
                     <FeatherIcon name="menu" size={22} />
                 </TouchableOpacity>
