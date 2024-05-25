@@ -1,4 +1,5 @@
 import { createTheme } from "@shopify/restyle"
+import { StatusBarStyle } from "react-native"
 
 const p = {
     white: 'white',
@@ -27,6 +28,9 @@ const theme = createTheme({
         xl: 24,
         xxl: 48,
         hg: 128
+    },
+    statusBar: {
+        barStyle: 'dark-content' as StatusBarStyle
     },
     breakpoints: {
         phone: 0,
